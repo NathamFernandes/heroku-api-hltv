@@ -7,51 +7,80 @@ const port = process.env.PORT || 3000
 app.use(cors());
 
 app.get('/', async (req, res) => {
-    res.send("hello! server is working.")
-})
-
-app.get('/teste', async (req, res) => {
-    res.send('oi!')
+    res.send("Servidor operacional!")
 })
 
 app.get('/noticias', async (req, res) => {
-    const news = await HLTV.getNews()
-    res.json(news)
+    try {
+        const news = await HLTV.getNews()
+        res.json(news)
+    } catch {
+        res.status(500).json({ msg: `Internal Server Error.` });
+    }
 })
 
 app.get('/resultados', async (req, res) => {
-    const results = await HLTV.getResults()
-    res.json(results)
+    try {
+        const results = await HLTV.getResults()
+        res.json(results)
+    } catch {
+        res.status(500).json({ msg: `Internal Server Error.` });
+    }
 })
 
 app.get('/partidas', async (req, res) => {
-    const matches = await HLTV.getMatches()
-    res.json(matches)
+    try {
+        const matches = await HLTV.getMatches()
+        res.json(matches)
+    } catch {
+        res.status(500).json({ msg: `Internal Server Error.` });
+    }
 })
 
 app.get('/resultados/:matchId/stats', async (req, res) => {
-    const stats = await HLTV.getMatchById(req.params.matchId)
-    res.json(stats)
+    try {
+        const stats = await HLTV.getMatchById(req.params.matchId)
+        res.json(stats)
+    } catch {
+        res.status(500).json({ msg: `Internal Server Error.` });
+    }
 })
 
 app.get('/jogadores', async (req, res) => {
-    const players = await HLTV.getTopPlayers()
-    res.json(players)
+    try {
+        const players = await HLTV.getTopPlayers()
+        res.json(players)
+    } catch {
+        res.status(500).json({ msg: `Internal Server Error.` });
+    }
 })
 
 app.get('/jogadores/:playerId', async (req, res) => {
-    const player = await HLTV.getPlayerById(req.params.playerId)
-    res.json(player)
+    try {
+        const player = await HLTV.getPlayerById(req.params.playerId)
+        res.json(player)
+    } catch {
+        res.status(500).json({ msg: `Internal Server Error.` });
+    }
 })
 
 app.get('/top-times', async (req, res) => {
-    const teams = await HLTV.getTopTeams()
-    res.json(teams)
+    try {
+        const teams = await HLTV.getTopTeams()
+        res.json(teams)
+    } catch {
+        res.status(500).json({ msg: `Internal Server Error.` });
+    }
 })
 
 app.get('/times/:teamId', async (req, res) => {
-    const team = await HLTV.getTeamById(req.params.teamId)
-    res.json(team)
+    try {
+        const team = await HLTV.getTeamById(req.params.teamId)
+        res.json(team)
+    }
+    catch {
+        res.status(500).json({ msg: `Internal Server Error.` });
+    }
 })
 
 app.listen(port, () => {
